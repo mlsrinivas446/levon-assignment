@@ -1,16 +1,16 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
-import LoginForm from './components/LoginForm/LoginForm.js'
-import Home from './components/Home/Home.js'
+import LoginForm from './components/LoginForm/LoginForm'
+import Dashboard from './components/Dashboard/Dashboard'
 
 import './App.css'
 
 const App = () => (
   <BrowserRouter>
-    <Routes>
-      <Route exact path="/login" element={<LoginForm />} />
-      <Route exact path="/" element={<Home />} />
-    </Routes>
+    <Switch>
+      <Route exact path="/login" component={LoginForm} />
+      <Route exact path="/dashboard" component={Dashboard} />
+    </Switch>
   </BrowserRouter>
 )
 

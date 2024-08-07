@@ -17,9 +17,10 @@ class LoginForm extends Component {
     this.setState({password: event.target.value})
   }
 
-  onSubmitSuccess = jwtToken => {
-    const {navigate} = this.props
-    navigate('/')
+  onSubmitSuccess = () => {
+    const {history} = this.props
+
+    history.replace('/dashboard')
   }
 
   onSubmitFailure = errorMsg => {
@@ -34,22 +35,13 @@ class LoginForm extends Component {
     const options = {
       method: 'POST',
       body: JSON.stringify(userDetails),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     }
-
-    try {
-      const response = await fetch(url, options)
-      const data = await response.json()
-      if (response.ok === true) {
-        this.onSubmitSuccess(data.jwt_token)
-      } else {
-        this.onSubmitFailure(data.error_msg)
-      }
-    } catch (error) {
-      console.error('Error fetching the API:', error)
-      this.onSubmitFailure('Something went wrong. Please try again later.')
+    const response = await fetch(url, options)
+    const data = await response.json()
+    if (response.ok === true) {
+      this.onSubmitSuccess(data.jwt_token)
+    } else {
+      this.onSubmitFailure(data.error_msg)
     }
   }
 
@@ -98,11 +90,6 @@ class LoginForm extends Component {
 
     return (
       <div className="login-form-container">
-        <img
-          src="https://res.cloudinary.com/drtnamxip/image/upload/v1722923529/lakshmiSrinivas2233.jpg"
-          className="login-website-logo-mobile-img"
-          alt="website logo"
-        />
         <img
           src="https://res.cloudinary.com/drtnamxip/image/upload/v1722923529/lakshmiSrinivas2233.jpg"
           className="login-img"
